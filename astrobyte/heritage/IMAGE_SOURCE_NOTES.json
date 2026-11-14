@@ -1,0 +1,13 @@
+{
+  "assets": {
+    "illustrative_orbital_image": {
+      "src": "/astrobyte/heritage/lunar_orbital_unverified.webp",
+      "title": "Lunar orbital image (site attribution not yet verified)",
+      "credit": "Image supplied by ASTROBYTE team; verify NASA catalog and site",
+      "source": null,
+      "verified": false
+    },
+    "note": "No image catalog IDs have been invented. Verify the source credit and mission for user-supplied images before public distribution."
+  },
+  "notes": "User-provided and document-embedded images. Verify individual image rights and photojournal ID for each before public publication."
+}
