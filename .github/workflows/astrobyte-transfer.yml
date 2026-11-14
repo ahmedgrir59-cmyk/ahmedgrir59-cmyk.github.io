@@ -1,0 +1,69 @@
+name: Transfer ASTROBYTE assets to GitHub Pages
+on:
+  push:
+    paths:
+      - '.github/workflows/astrobyte-transfer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and check ASTROBYTE deployment assets
+        env:
+          FILE_MANIFEST: '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'
+        run: |
+          python3 - <<'PY'
+          import os, json, gzip, base64, hashlib, urllib.request, urllib.parse, pathlib, time
+          manifest = json.loads(gzip.decompress(base64.b64decode(os.environ['FILE_MANIFEST'])))
+          sources = ['https://wispy-recipe-0c1e.ahmedgrir59.workers.dev', 'https://deft-cactus-9b498b.netlify.app']
+          checks = {
+              'index.html':'c614f6d8814dbc9146325b38c64645b4ca9c54ed53e0c85a39def1aa548f95b5',
+              'assets/index-C0e2g9cC.js':'09498af6d69873c364e4bcecb865032fc674eb21183f3351061c54f3f61aafd6',
+              'models/nasa_perseverance.glb':'10db7c03a5e63a5a3b3e7baa6243aa4918ba045fa8ff0a731d0217491adc727f',
+          }
+          failed=[]
+          for n,(path,size) in enumerate(manifest.items(),1):
+              if path.startswith('/') or '..' in pathlib.PurePosixPath(path).parts:
+                  raise ValueError('Unsafe file path: '+path)
+              good=False
+              for src in sources:
+                  try:
+                      url=src+'/'+urllib.parse.quote(path,safe='/')
+                      req=urllib.request.Request(url,headers={'User-Agent':'ASTROBYTE-deployment-transfer/1.0'})
+                      with urllib.request.urlopen(req,timeout=25) as res:
+                          blob=res.read()
+                      if len(blob)!=size: raise ValueError('Expected '+str(size)+' bytes, got '+str(len(blob)))
+                      if path in checks and hashlib.sha256(blob).hexdigest()!=checks[path]:
+                          raise ValueError('File checksum mismatch')
+                      destination=pathlib.Path(path)
+                      destination.parent.mkdir(parents=True,exist_ok=True)
+                      destination.write_bytes(blob)
+                      print(str(n)+'/'+str(len(manifest))+' '+path+' ('+str(size)+' bytes) from '+src)
+                      good=True
+                      break
+                  except Exception as e:
+                      print('Could not get '+path+' from '+src+': '+str(e))
+              if not good: failed.append(path)
+          if failed:
+              print('FAILED files: '+', '.join(failed))
+              raise SystemExit('Transfer incomplete; no commit will be pushed')
+          pathlib.Path('.nojekyll').touch()
+          pathlib.Path('404.html').write_bytes(pathlib.Path('index.html').read_bytes())
+          print('Verified '+str(len(manifest))+' files')
+          PY
+      - name: Publish files to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes needed."
+          else
+            git commit -m "Publish ASTROBYTE static site"
+            git push
+          fi
